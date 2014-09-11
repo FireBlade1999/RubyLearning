@@ -64,7 +64,9 @@ class Parser
 
     # my fix runs the entire array properly
     word_list.each do
-      match(word_list, word_type)
+      if peek(word_list) == word_type
+        match(word_list, word_type)
+      end
     end
   end
   

@@ -46,8 +46,16 @@ class ParserTest < Test::Unit::TestCase
     assert_equal([['verb', 'go'], ['verb', 'eat']], parser.skip(word_list, 'stop'))
   end
   
-  def test_parse_verb()
-    
+  def test_parse_verb_simple()
+    word_list = [['verb', 'eat'], ['verb', 'go']]
+    parser = Parser.new()
+    assert_equal(['verb', 'eat'], parser.parse_verb(word_list))
+  end
+  
+  def test_parse_verb_with_stop()
+    word_list = [['stop', 'and'], ['verb', 'go']]
+    parser = Parser.new()
+    assert_equal(['verb', 'go'], parser.parse_verb(word_list))
   end
   
   def test_parse_object()
