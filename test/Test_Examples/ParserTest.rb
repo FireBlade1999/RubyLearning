@@ -58,6 +58,15 @@ class ParserTest < Test::Unit::TestCase
     assert_equal(['verb', 'go'], parser.parse_verb(word_list))
   end
   
+  def test_parse_verb_exception()
+    word_list = [['stop', 'and'], ['noun', 'bob'], ['verb', 'go']]
+    
+    assert_raise ParserException do
+      parser = Parser.new()
+      parser.parse_verb(word_list)
+    end
+  end
+  
   def test_parse_object()
     
   end
