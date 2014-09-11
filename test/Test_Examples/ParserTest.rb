@@ -65,21 +65,27 @@ class ParserTest < Test::Unit::TestCase
   end
   
   def test_parse_object_direction_simple()
-    word_list = [['direction', 'left']]
+    word_list = [['direction', 'up']]
+    assert_equal(['direction', 'up'], @@parser.parse_object(word_list))
   end
   
   def test_parse_object_noun_and_direction_simple()
     word_list = [['direction', 'right'], ['noun', 'bob']]
+    assert_equal(['direction', 'right'], @@parser.parse_object(word_list))
   end
   
   def test_parse_object_with_stop()
-    word_list = [['noun', 'bob'], ['stop', 'at'], ['direction', 'down']]
+    word_list = [['stop', 'it'], ['noun', 'bob'], ['direction', 'down']]
+    assert_equal(['noun', 'bob'], @@parser.parse_object(word_list))
   end
   
   def test_parse_object_exception()
     word_list = [['verb', 'punch']]
+    
+    assert_raise ParserException do
+      @@parser.parse_object(word_list)
+    end
   end
-  
   
   def test_parse_subject()
     
