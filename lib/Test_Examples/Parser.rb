@@ -55,7 +55,15 @@ class Parser
   # "scream bear"
   # 
   def skip(word_list, word_type)
-    while peek(word_list) == word_type
+    # I think the first encounter of a non 'word_type'
+    # word, makes this stop, potentially leaving more
+    # 'word_type' words left in the sentence. WRONG
+#    while peek(word_list) == word_type
+#      match(word_list, word_type)
+#    end
+
+    # my fix runs the entire array properly
+    word_list.each do
       match(word_list, word_type)
     end
   end
