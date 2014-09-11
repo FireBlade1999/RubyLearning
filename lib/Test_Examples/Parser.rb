@@ -1,4 +1,6 @@
 
+require "C://Users//steven.williams//workspace//Samples//RubyWebDriverSample1//RubyWebDriverSample1//lib//Test_Examples//Sentence.rb"
+
 #
 # We need to peek at words in the list to decide what kind of sentence we 
 # are dealing with. Then we need to match those words to create a Sentence
@@ -135,11 +137,12 @@ class Parser
   # return new Sentence object
   #
   def parse_sentence(word_list)
+    skip(word_list, 'stop')
+    
     subj = parse_subject(word_list)
     verb = parse_verb(word_list)
     obj = parse_object(word_list)
     
     return Sentence.new(subj, verb, obj)
   end
-  
 end

@@ -60,8 +60,8 @@ class ParserTest < Test::Unit::TestCase
   end
   
   def test_parse_object_noun_simple()
-    word_list = [['noun', 'and']]
-    assert_equal(['noun', 'and'], @@parser.parse_object(word_list))
+    word_list = [['noun', 'bob']]
+    assert_equal(['noun', 'bob'], @@parser.parse_object(word_list))
   end
   
   def test_parse_object_direction_simple()
@@ -87,11 +87,38 @@ class ParserTest < Test::Unit::TestCase
     end
   end
   
-  def test_parse_subject()
+  def test_parse_subject_noun_simple()
+    word_list = [['noun', 'bob']]
+    assert_equal(['noun', 'bob'], @@parser.parse_subject(word_list))
+  end
+  
+  def test_parse_subject_verb_simple()
+    word_list = [['verb', 'go']]
+    assert_equal(['noun', 'player'], @@parser.parse_subject(word_list))
+  end
+  
+  def test_parse_subject_noun_and_verb_simple()
+    word_list = [['verb', 'go'], ['noun', 'bob']]
+    assert_equal(['noun', 'player'], @@parser.parse_subject(word_list))
+  end
+  
+  def test_parse_subject_with_stop()
+    word_list = [['stop', 'it'], ['noun', 'bob'], ['verb', 'eat']]
+    assert_equal(['noun', 'bob'], @@parser.parse_subject(word_list))
+  end
+  
+  def test_parse_subject_exception()
+    word_list = [['direction', 'south']]
     
+    assert_raise ParserException do
+      @@parser.parse_subject(word_list)
+    end
   end
   
   def test_parse_sentence()
+    word_list = [['verb', 'go'], ['noun', 'bob'], ['stop', 'at'], ['verb', 'eat']]
     
+    sentence = @@parser.parse_sentence(word_list)
+    assert(sentence.instance_of?(Sentence), "Should be of class Sentence but isn't")
   end
 end
