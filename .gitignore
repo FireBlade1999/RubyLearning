@@ -4,6 +4,7 @@ target
 # netbeans
 nbactions.xml
 nb-configuration.xml
+nbproject/private/private.xml
 
 # eclipse
 .classpath
